@@ -64,5 +64,6 @@ public static void eliminarComida(int idComida){
         JOptionPane.showMessageDialog(null, "Error al eliminar comida");
         }
 }
+//
 
 }
