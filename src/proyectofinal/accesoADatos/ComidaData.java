@@ -64,6 +64,54 @@ public static void eliminarComida(int idComida){
         JOptionPane.showMessageDialog(null, "Error al eliminar comida");
         }
 }
-//
+
+public static Comida obtenerComidaPorId(int idComida){
+    Comida comida =null;
+    try(Connection conexion=(Connection) Conexion.obtenerConexion();
+            PreparedStatement ps=conexion.prepareStatement(SELECCIONARCOMIDAXID)){
+        ps.setInt(1, idComida);
+        ResultSet rs=ps.executeQuery();
+        
+        if(rs.next()){
+                String nombre=rs.getString("nombre");
+                String detalle=rs.getString("detalle");
+                int cantCalorias=rs.getInt("cantCalorias");
+            }
+        
+    }catch(SQLException ex){
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "error al sellecionar comida por id");
+    }
+    return comida;
+}
+
+public static List<Comida> obtenerComidasPorCalorias(int maxCalorias) {
+        List<Comida> comidas = new ArrayList<>();
+        try (Connection conexion = (Connection) Conexion.obtenerConexion();
+             PreparedStatement preparedStatement = conexion.prepareStatement(SELECCIONARCOMIDAXCALORIAS)) {
+
+            preparedStatement.setInt(1, maxCalorias);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                int idComida = resultSet.getInt("idComida");
+                String nombre = resultSet.getString("nombre");
+                String detalle = resultSet.getString("detalle");
+                int cantCalorias = resultSet.getInt("cantCalorias");
+
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return comidas;
+        //
+    }
+
+
+
 
 }
+
+
+

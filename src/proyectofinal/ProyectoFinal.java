@@ -18,8 +18,9 @@ public class ProyectoFinal {
 //        Comida comida1=new Comida("Pizza","Pizza Napolitana",600);
 //        asd.insertarComida(comida1);
 //        System.out.println("Nueva comida ingresada correctamente");
-        asd.eliminarComida(3);
-        System.out.println("La comida ha sido eliminada correctamente");
+//        asd.eliminarComida(3);
+//        System.out.println("La comida ha sido eliminada correctamente");
+          
         
         
     }
