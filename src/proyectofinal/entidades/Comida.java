@@ -10,12 +10,25 @@ public class Comida {
     private String detalle;
     private int cantCalorias;
     private int idComida;
+    private boolean estado;
 
-    public Comida(String nombre, String detalle, int cantCalorias) {
+    public Comida(String nombre, String detalle, int cantCalorias,boolean estado) {
         this.nombre = nombre;
         this.detalle = detalle;
         this.cantCalorias = cantCalorias;
         this.idComida=idComida;
+        this.estado=estado;
+    }
+
+    public Comida() {
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public String getNombre() {

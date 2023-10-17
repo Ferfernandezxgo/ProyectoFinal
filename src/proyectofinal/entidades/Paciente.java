@@ -11,13 +11,26 @@ public class Paciente {
     private int dni;
     private String domicilio;
     private String telefono;
+    private boolean estado;
     
-    public Paciente(int idPaciente, String nombre, int dni, String domicilio, String telefono){
+    public Paciente(int idPaciente, String nombre, int dni, String domicilio, String telefono,boolean estado){
         this.idPaciente=idPaciente;
         this.nombre=nombre;
         this.dni=dni;
         this.domicilio=domicilio;
         this.telefono=telefono;
+        this.estado=estado;
+    }
+
+    public Paciente() {
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
     
     public int getIdPaciente(){

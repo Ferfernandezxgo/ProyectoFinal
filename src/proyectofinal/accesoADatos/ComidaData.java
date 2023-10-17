@@ -14,11 +14,14 @@ import javax.swing.JOptionPane;
 
 
 public class ComidaData {
-    private static final String INSERTCOMIDA=" INSERT INTO comida(nombre,detalle,cantCalorias)Values(?,?,?) ";
+    private static final String INSERTCOMIDA=" INSERT INTO comida(nombre,detalle,cantCalorias,estado)Values(?,?,?,?) ";
     private static final String ACTUALIZARCOMIDA=" UPDATE comida set nombre=?, detalle=?, cantCalorias=? WHERE idComida=? ";
-    private static final String BORRARCOMIDA=" DELETE FROM comida WHERE idComida=? ";
+    private static final String BORRARCOMIDA=" DELETE FROM comida WHERE estado=? ";
     private static final String SELECCIONARCOMIDAXID=" SELECT * FROM comida WHERE idComida=?";
     private static final String SELECCIONARCOMIDAXCALORIAS=" SELECT * FROM comida WHERE cantCalorias < ?";
+
+    public ComidaData() {
+    }
 
 public static void insertarComida(Comida comida){
     try(
@@ -27,6 +30,7 @@ public static void insertarComida(Comida comida){
         ps.setString(1, comida.getNombre());
         ps.setString(2, comida.getDetalle());
         ps.setInt(3, comida.getCantCalorias());
+        ps.setBoolean(4,comida.isEstado());
         
         ps.executeUpdate();
         
