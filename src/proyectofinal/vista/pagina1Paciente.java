@@ -196,7 +196,7 @@ public class pagina1Paciente extends javax.swing.JInternalFrame {
             
         } else{
         
-            JOptionPane.showMessageDialog(this, "No hay un alumno seleccionado");
+            JOptionPane.showMessageDialog(this, "No hay un paciente seleccionado");
         }
     }//GEN-LAST:event_JbEliminarActionPerformed
 
