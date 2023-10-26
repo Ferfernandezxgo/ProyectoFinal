@@ -25,6 +25,14 @@ public class Paciente {
     public Paciente() {
     }
 
+    /*public Paciente(Integer dni, String nombre, String domicilio, String telefono, Boolean estado, Integer idpaciente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }*/
+
+    public Paciente(Integer dni, String nombre, String domicilio, String telefono, Boolean estado) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public boolean isEstado() {
         return estado;
     }

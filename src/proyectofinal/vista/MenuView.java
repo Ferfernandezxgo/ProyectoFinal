@@ -168,7 +168,8 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jbPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPacienteActionPerformed
         // TODO add your handling code here:
-        Page1 p1=new Page1();
+        
+        Page1 p1= new Page1();
         p1.setSize(750, 430);
         p1.setLocation(0,0);
         
