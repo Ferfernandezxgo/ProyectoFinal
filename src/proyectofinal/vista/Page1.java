@@ -7,6 +7,11 @@ package proyectofinal.vista;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import proyectofinal.accesoADatos.PacienteData;
+import static proyectofinal.accesoADatos.PacienteData.buscarPacientePorDni;
+import static proyectofinal.accesoADatos.PacienteData.eliminarPaciente;
+import proyectofinal.entidades.Paciente;
 
 /**
  *
@@ -14,9 +19,9 @@ import javax.swing.ImageIcon;
  */
 public class Page1 extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Page1
-     */
+    private PacienteData pdata = new PacienteData();
+    
+    private Paciente pacienteActual = null;
     public Page1() {
         initComponents();
     }
@@ -47,10 +52,12 @@ public class Page1 extends javax.swing.JPanel {
         jtDomicilio = new javax.swing.JTextField();
         jtIdPaciente = new javax.swing.JTextField();
         jtTelefono = new javax.swing.JTextField();
-        jBotonNuevo = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jBotonEliminar = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
+        jrEstado = new javax.swing.JRadioButton();
+        jLabel9 = new javax.swing.JLabel();
+        jBNuevo = new javax.swing.JButton();
+        jBAgregar = new javax.swing.JButton();
+        jBBuscar = new javax.swing.JButton();
+        jBEliminar = new javax.swing.JButton();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -71,53 +78,52 @@ public class Page1 extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Roboto Serif 20pt", 3, 14)); // NOI18N
         jLabel6.setText("Id Paciente");
 
-        jBotonNuevo.setBackground(new java.awt.Color(83, 48, 0));
-        jBotonNuevo.setForeground(new java.awt.Color(102, 0, 102));
+        jtDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtDniActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Roboto Serif 20pt", 3, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Nuevo");
+        jLabel9.setFont(new java.awt.Font("Roboto Serif 20pt", 3, 14)); // NOI18N
+        jLabel9.setText("Estado");
 
-        javax.swing.GroupLayout jBotonNuevoLayout = new javax.swing.GroupLayout(jBotonNuevo);
-        jBotonNuevo.setLayout(jBotonNuevoLayout);
-        jBotonNuevoLayout.setHorizontalGroup(
-            jBotonNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jBotonNuevoLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jLabel1)
-                .addContainerGap(28, Short.MAX_VALUE))
-        );
-        jBotonNuevoLayout.setVerticalGroup(
-            jBotonNuevoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jBotonNuevoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(10, Short.MAX_VALUE))
-        );
+        jBNuevo.setText("Nuevo");
+        jBNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBNuevoMouseClicked(evt);
+            }
+        });
+        jBNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBNuevoActionPerformed(evt);
+            }
+        });
 
-        jBotonEliminar.setBackground(new java.awt.Color(83, 48, 0));
+        jBAgregar.setText("Agregar");
+        jBAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBAgregarMouseClicked(evt);
+            }
+        });
 
-        jLabel7.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel7.setFont(new java.awt.Font("Roboto Serif 20pt", 3, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Eliminar");
+        jBBuscar.setText("Buscar");
+        jBBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBBuscarMouseClicked(evt);
+            }
+        });
+        jBBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBBuscarActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jBotonEliminarLayout = new javax.swing.GroupLayout(jBotonEliminar);
-        jBotonEliminar.setLayout(jBotonEliminarLayout);
-        jBotonEliminarLayout.setHorizontalGroup(
-            jBotonEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jBotonEliminarLayout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel7)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
-        jBotonEliminarLayout.setVerticalGroup(
-            jBotonEliminarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jBotonEliminarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jBEliminar.setText("Eliminar");
+        jBEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBEliminarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,27 +132,31 @@ public class Page1 extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jBNuevo)
+                        .addGap(32, 32, 32)
+                        .addComponent(jBAgregar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBBuscar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jBEliminar))
                     .addComponent(jLabel5)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel9))
                         .addGap(68, 68, 68)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jrEstado)
                             .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(184, 352, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(83, 83, 83)
-                .addComponent(jBotonNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(112, 112, 112)
-                .addComponent(jBotonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(348, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -171,28 +181,103 @@ public class Page1 extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jBotonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jBotonEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jrEstado)
+                    .addComponent(jLabel9))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBNuevo)
+                    .addComponent(jBAgregar)
+                    .addComponent(jBBuscar)
+                    .addComponent(jBEliminar))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 410));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jBBuscarActionPerformed
 
+    private void jBBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscarMouseClicked
+        // TODO add your handling code here:
+        Integer dni=Integer.parseInt(jtDni.getText());
+        buscarPacientePorDni(dni);
+    }//GEN-LAST:event_jBBuscarMouseClicked
+
+    private void jtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtDniActionPerformed
+
+    private void jBEliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBEliminarMouseClicked
+        // TODO add your handling code here:
+        Integer dni=Integer.parseInt(jtDni.getText());
+        eliminarPaciente(dni);
+    }//GEN-LAST:event_jBEliminarMouseClicked
+
+    private void jBAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAgregarMouseClicked
+        // TODO add your handling code here:
+        // Recopila los datos de la interfaz (por ejemplo, jtNombre, jtDomicilio, jtDni, jtTelefono, jrEstado)
+    Paciente nuevoPaciente=new Paciente();
+    PacienteData pData=new PacienteData();
+    // Inserta el nuevo paciente en la base de datos
+    pData.insertarPaciente(nuevoPaciente);
+    
+        String nombre = jtNombre.getText();
+    String domicilio = jtDomicilio.getText();
+    int dni = Integer.parseInt(jtDni.getText());
+    String telefono = jtTelefono.getText();
+    boolean estado = jrEstado.isSelected();
+
+    // Crea un nuevo objeto Paciente con estos datos
+    
+
+    // Puedes mostrar un mensaje de éxito o realizar otras acciones necesarias aquí
+    JOptionPane.showMessageDialog(this, "Nuevo paciente agregado con éxito.");
+    
+    // También puedes restablecer los campos de entrada de datos o realizar otras acciones necesarias
+    jtNombre.setText("");
+    jtDomicilio.setText("");
+    jtDni.setText("");
+    jtTelefono.setText("");
+    jrEstado.setSelected(false);
+    }//GEN-LAST:event_jBAgregarMouseClicked
+
+    private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBNuevoActionPerformed
+
+    private void jBNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBNuevoMouseClicked
+        // TODO add your handling code here:
+        limpiarCampos();
+        pacienteActual=null;
+    }//GEN-LAST:event_jBNuevoMouseClicked
+
+
+    public void limpiarCampos(){
+    
+        jtDni.setText("");
+        jtNombre.setText("");
+        jtDomicilio.setText("");
+        jtTelefono.setText("");
+        jrEstado.setSelected(true);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jBotonEliminar;
-    private javax.swing.JPanel jBotonNuevo;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jBAgregar;
+    private javax.swing.JButton jBBuscar;
+    private javax.swing.JButton jBEliminar;
+    private javax.swing.JButton jBNuevo;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton jrEstado;
     private javax.swing.JTextField jtDni;
     private javax.swing.JTextField jtDomicilio;
     private javax.swing.JTextField jtIdPaciente;

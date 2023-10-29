@@ -34,11 +34,13 @@ public class DietaData {
 
             ps.setString(1, dieta.getNombre());
             ps.setInt(2, dieta.getPaciente().getIdPaciente());
-            ps.setDouble(3, dieta.getPesoInicial());
-            ps.setDouble(4, dieta.getPesoFinal());
-            ps.setDate(5, Date.valueOf(dieta.getFechaInicial()));
-            ps.setDate(6, Date.valueOf(dieta.getFechaFinal()));
+            ps.setDate(3, Date.valueOf(dieta.getFechaInicial()));
+            ps.setDate(4, Date.valueOf(dieta.getFechaFinal()));
+            ps.setDouble(5, dieta.getPesoInicial());
+            ps.setDouble(6, dieta.getPesoFinal());
             ps.setBoolean(7, true);
+            
+            
 
             ps.executeUpdate();
             ps.close();
@@ -74,10 +76,10 @@ public class DietaData {
                 dieta= new Dieta();
                 dieta.setIdDieta(idDieta);
                 dieta.setNombre(rs.getString("nombre"));
-                dieta.setPesoInicial(rs.getDouble("peso inicial"));
-                dieta.setPesoFinal(rs.getDouble("peso final"));
-                dieta.setFechaInicial(rs.getDate("fecha inicial").toLocalDate());
-                dieta.setFechaFinal(rs.getDate("fecha final").toLocalDate());
+                dieta.setPesoInicial(rs.getDouble("pesoInicial"));
+                dieta.setPesoFinal(rs.getDouble("pesoFinal"));
+                dieta.setFechaInicial(rs.getDate("fechaInicial").toLocalDate());
+                dieta.setFechaFinal(rs.getDate("fechaFinal").toLocalDate());
                 dieta.setEstado(true);
                
             } 
@@ -85,7 +87,7 @@ public class DietaData {
         ps.close();
     }catch(SQLException ex){
         ex.printStackTrace();
-        JOptionPane.showMessageDialog(null, "dieta no encontrado");
+        JOptionPane.showMessageDialog(null, "dieta no encontrada");
     }
     return dieta;
 }  
@@ -96,12 +98,12 @@ public class DietaData {
 
             ps.setString(1, dieta.getNombre());
             ps.setInt(2, dieta.getPaciente().getIdPaciente());
-            ps.setDouble(3, dieta.getPesoInicial());
-            ps.setDouble(4, dieta.getPesoFinal());
             ps.setDate(5, Date.valueOf(dieta.getFechaInicial()));
             ps.setDate(6, Date.valueOf(dieta.getFechaFinal()));
+            ps.setDouble(3, dieta.getPesoInicial());
+            ps.setDouble(4, dieta.getPesoFinal());
             ps.setBoolean(7, true);
-
+            ps.setInt(8,dieta.getIdDieta());
 
         ps.executeUpdate();
         ps.close();

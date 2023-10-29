@@ -50,6 +50,7 @@ public static void actualizarComida(Comida comida){
         ps.setString(2, comida.getDetalle());
         ps.setInt(3, comida.getCantCalorias());
         ps.setInt(4,comida.getIdComida());
+        ps.executeUpdate();
     
     }catch(SQLException ex){
         ex.printStackTrace();
@@ -80,6 +81,8 @@ public static Comida obtenerComidaPorId(int idComida){
                 String nombre=rs.getString("nombre");
                 String detalle=rs.getString("detalle");
                 int cantCalorias=rs.getInt("cantCalorias");
+                
+                comida= new Comida(nombre,detalle,cantCalorias,true);
             }
         
     }catch(SQLException ex){
@@ -102,6 +105,11 @@ public static List<Comida> obtenerComidasPorCalorias(int maxCalorias) {
                 String nombre = resultSet.getString("nombre");
                 String detalle = resultSet.getString("detalle");
                 int cantCalorias = resultSet.getInt("cantCalorias");
+                
+                
+                
+                Comida comida = new Comida(nombre, detalle, cantCalorias, true);
+                comidas.add(comida);
 
                 
             }

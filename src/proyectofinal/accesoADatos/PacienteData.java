@@ -76,17 +76,14 @@ public class PacienteData {
         try (Connection conexion = Conexion.obtenerConexion();
          PreparedStatement ps = conexion.prepareStatement(ACTUALIZAR_PACIENTE)) {
 
-        ps.setInt(1, paciente.getIdPaciente());
-        ps.setString(2, paciente.getNombre());
-        ps.setInt(3, paciente.getDni());
-        
-        ps.setString(4, paciente.getDomicilio());
-        ps.setString(5, paciente.getTelefono());
-        ps.setBoolean(6, true);
-
+        ps.setString(1, paciente.getNombre());
+        ps.setInt(2, paciente.getDni());
+        ps.setString(3, paciente.getDomicilio());
+        ps.setString(4, paciente.getTelefono());
+        ps.setBoolean(5, true);
+        ps.setInt(6, paciente.getIdPaciente());
 
         ps.executeUpdate();
-        ps.close();
     } catch (SQLException ex) {
         ex.printStackTrace();
         JOptionPane.showMessageDialog(null, "Error al actualizar paciente");
@@ -104,10 +101,10 @@ public class PacienteData {
                                
                 paciente= new Paciente();
                 paciente.setDni(rs.getInt("dni"));
-                paciente.setNombre(rs.getString("Nombre"));
+                paciente.setNombre(rs.getString("nombre"));
                 paciente.setIdPaciente(rs.getInt("idPaciente"));
-                paciente.setDomicilio(rs.getString("Domicilio"));
-                paciente.setTelefono(rs.getString("Telefono"));
+                paciente.setDomicilio(rs.getString("domicilio"));
+                paciente.setTelefono(rs.getString("telefono"));
                 paciente.setEstado(true);
                
             }
