@@ -40,6 +40,8 @@ public static void insertarComida(Comida comida){
     }   catch (SQLException ex) {   
         ex.printStackTrace();
         JOptionPane.showMessageDialog(null, "Error al acceder a la tabla comida");
+        
+        
     }   
 }
 
