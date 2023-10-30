@@ -6,12 +6,16 @@ package proyectofinal.vista;
 
 import java.awt.Graphics;
 import java.awt.Image;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import org.mariadb.jdbc.Connection;
 import proyectofinal.accesoADatos.PacienteData;
 import static proyectofinal.accesoADatos.PacienteData.buscarPacientePorDni;
 import static proyectofinal.accesoADatos.PacienteData.eliminarPaciente;
 import proyectofinal.entidades.Paciente;
+import java.sql.*;
 
 /**
  *
@@ -48,7 +52,6 @@ public class Page1 extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jtDni = new javax.swing.JTextField();
-        jtNombre = new javax.swing.JTextField();
         jtDomicilio = new javax.swing.JTextField();
         jtIdPaciente = new javax.swing.JTextField();
         jtTelefono = new javax.swing.JTextField();
@@ -58,6 +61,7 @@ public class Page1 extends javax.swing.JPanel {
         jBAgregar = new javax.swing.JButton();
         jBBuscar = new javax.swing.JButton();
         jBEliminar = new javax.swing.JButton();
+        jtNombre = new javax.swing.JTextField();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -131,45 +135,53 @@ public class Page1 extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jBNuevo)
-                        .addGap(32, 32, 32)
-                        .addComponent(jBAgregar)
-                        .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(94, 94, 94)
+                                .addComponent(jrEstado))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jBNuevo)
+                                .addGap(18, 18, 18)
+                                .addComponent(jBAgregar)))
+                        .addGap(28, 28, 28)
                         .addComponent(jBBuscar)
-                        .addGap(18, 18, 18)
+                        .addGap(34, 34, 34)
                         .addComponent(jBEliminar))
-                    .addComponent(jLabel5)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addComponent(jLabel9))
-                        .addGap(68, 68, 68)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jrEstado)
-                            .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(54, 54, 54)
+                                .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(348, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(82, 82, 82)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
                     .addComponent(jtDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jtDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -181,17 +193,17 @@ public class Page1 extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jtIdPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jrEstado)
-                    .addComponent(jLabel9))
-                .addGap(34, 34, 34)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9)
+                    .addComponent(jrEstado))
+                .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBNuevo)
                     .addComponent(jBAgregar)
                     .addComponent(jBBuscar)
                     .addComponent(jBEliminar))
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 740, 410));
@@ -203,9 +215,39 @@ public class Page1 extends javax.swing.JPanel {
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jBBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBBuscarMouseClicked
-        // TODO add your handling code here:
-        Integer dni=Integer.parseInt(jtDni.getText());
-        buscarPacientePorDni(dni);
+        try {
+        String dniText = jtDni.getText();
+        if (dniText.isEmpty()) {
+            System.out.println("El campo DNI está vacío.");
+            return;
+        }
+        
+        // Intenta convertir el DNI a un entero
+        Integer dni = Integer.parseInt(dniText);
+        
+        // Imprime el DNI para verificar que se obtuvo correctamente
+        System.out.println("DNI: " + dni);
+        
+        // Llama al método buscarPacientePorDni y verifica si se encuentra el paciente
+        pacienteActual = pdata.buscarPacientePorDni(dni);
+        if (pacienteActual != null) {
+            // Imprime los datos del paciente para verificar que se obtuvieron correctamente
+            System.out.println("Nombre: " + pacienteActual.getNombre());
+            System.out.println("Domicilio: " + pacienteActual.getDomicilio());
+            System.out.println("Telefono: " + pacienteActual.getTelefono());
+            System.out.println("Estado: " + pacienteActual.isEstado());
+            
+            // Asigna los datos del paciente a los campos de la interfaz
+            jtNombre.setText(pacienteActual.getNombre());
+            jtDomicilio.setText(pacienteActual.getDomicilio());
+            jtTelefono.setText(pacienteActual.getTelefono());
+            jrEstado.setSelected(pacienteActual.isEstado());
+        } else {
+            System.out.println("Paciente no encontrado.");
+        }
+    } catch (NumberFormatException e) {
+        System.out.println("El DNI no es un número válido.");
+    }
     }//GEN-LAST:event_jBBuscarMouseClicked
 
     private void jtDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDniActionPerformed
@@ -221,29 +263,33 @@ public class Page1 extends javax.swing.JPanel {
     private void jBAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBAgregarMouseClicked
         // TODO add your handling code here:
         // Recopila los datos de la interfaz (por ejemplo, jtNombre, jtDomicilio, jtDni, jtTelefono, jrEstado)
-    Paciente nuevoPaciente=new Paciente();
-    PacienteData pData=new PacienteData();
-    // Inserta el nuevo paciente en la base de datos
-    pData.insertarPaciente(nuevoPaciente);
     
-        String nombre = jtNombre.getText();
+    
+    
+    
+    String nombre = jtNombre.getText();
     String domicilio = jtDomicilio.getText();
     int dni = Integer.parseInt(jtDni.getText());
     String telefono = jtTelefono.getText();
     boolean estado = jrEstado.isSelected();
+    
+    Paciente nuevoPaciente=new Paciente();
+    nuevoPaciente.setNombre(nombre);
+    nuevoPaciente.setDomicilio(domicilio);
+    nuevoPaciente.setDni(dni);
+    nuevoPaciente.setTelefono(telefono);
+    nuevoPaciente.setEstado(estado);
 
+    PacienteData pData=new PacienteData();
+    pData.insertarPaciente(nuevoPaciente);
     // Crea un nuevo objeto Paciente con estos datos
     
 
     // Puedes mostrar un mensaje de éxito o realizar otras acciones necesarias aquí
     JOptionPane.showMessageDialog(this, "Nuevo paciente agregado con éxito.");
     
-    // También puedes restablecer los campos de entrada de datos o realizar otras acciones necesarias
-    jtNombre.setText("");
-    jtDomicilio.setText("");
-    jtDni.setText("");
-    jtTelefono.setText("");
-    jrEstado.setSelected(false);
+    // También puedes restablecer los campos de entrada de datos 
+     limpiarCampos();
     }//GEN-LAST:event_jBAgregarMouseClicked
 
     private void jBNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBNuevoActionPerformed
