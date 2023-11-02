@@ -5,17 +5,43 @@
  */
 package proyectofinal.vista;
 
+import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import proyectofinal.accesoADatos.ComidaData;
+import proyectofinal.entidades.Comida;
+
 /**
  *
  * @author Rusty
  */
 public class Page22 extends javax.swing.JPanel {
 
-    /**
-     * Creates new form Page22
-     */
+    private ComidaData comidaData;
+    private Comida comidaActual=null;
+  
+////    En un ArrayList se iran guardando las comidas
+//    public static  ArrayList<Comida> listaComidas=new ArrayList<>();
+    
+// Creamos un modelo por defecto para luego personalizar la tabla con metodo armarCabecera     
+private DefaultTableModel modelo = new DefaultTableModel(){
+    public boolean isCellEditable(int f, int c){
+        return false; //Hice NO editable a la tabla
+    }
+}; 
+    
+    
+    
     public Page22() {
         initComponents();
+        armarCabecera();
     }
 
     /**
@@ -49,14 +75,16 @@ public class Page22 extends javax.swing.JPanel {
         jbLimpiar = new javax.swing.JButton();
         jbActualizar = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        BuscarId = new javax.swing.JButton();
+        BuscarNombre = new javax.swing.JButton();
+        BuscarCalorias = new javax.swing.JButton();
+        jbLimpiarTabla = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(750, 430));
+        setPreferredSize(new java.awt.Dimension(740, 410));
 
         jPanel1.setMaximumSize(new java.awt.Dimension(750, 430));
         jPanel1.setMinimumSize(new java.awt.Dimension(750, 430));
+        jPanel1.setPreferredSize(new java.awt.Dimension(740, 410));
 
         jLabel1.setFont(new java.awt.Font("Roboto Black", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -87,7 +115,7 @@ public class Page22 extends javax.swing.JPanel {
         jLabel4.setText("Calorias");
 
         jLabel5.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
-        jLabel5.setText("Consultar por Id");
+        jLabel5.setText("Consultar por Codigo");
 
         jLabel6.setFont(new java.awt.Font("Roboto", 1, 12)); // NOI18N
         jLabel6.setText("Consultar por Nombre");
@@ -129,21 +157,49 @@ public class Page22 extends javax.swing.JPanel {
 
         jbActualizar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jbActualizar.setText("Actualizar");
+        jbActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbActualizarActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jbEliminar.setText("Eliminar");
-
-        jButton5.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jButton5.setText("Buscar");
-
-        jButton6.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jButton6.setText("Buscar");
-
-        jButton7.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jButton7.setText("Buscar");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jbEliminarActionPerformed(evt);
+            }
+        });
+
+        BuscarId.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        BuscarId.setText("Buscar");
+        BuscarId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarIdActionPerformed(evt);
+            }
+        });
+
+        BuscarNombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        BuscarNombre.setText("Buscar");
+        BuscarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarNombreActionPerformed(evt);
+            }
+        });
+
+        BuscarCalorias.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        BuscarCalorias.setText("Buscar");
+        BuscarCalorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarCaloriasActionPerformed(evt);
+            }
+        });
+
+        jbLimpiarTabla.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jbLimpiarTabla.setText("Limpiar");
+        jbLimpiarTabla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarTablaActionPerformed(evt);
             }
         });
 
@@ -152,15 +208,11 @@ public class Page22 extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -170,45 +222,52 @@ public class Page22 extends javax.swing.JPanel {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jtDetalle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jtCalorias, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(2, 2, 2)
+                                    .addComponent(jtCalorias, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(2, 2, 2)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 476, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(21, 21, 21)
+                                        .addComponent(jtConsultaCalorias, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel5)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jtConsultaId, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                            .addComponent(jLabel6)
+                                            .addGap(21, 21, 21)
+                                            .addComponent(jtConsultaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(BuscarId)
+                                    .addComponent(BuscarNombre)
+                                    .addComponent(BuscarCalorias)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel6)
-                                                .addGap(21, 21, 21)
-                                                .addComponent(jtConsultaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel5)
-                                                .addGap(52, 52, 52)
-                                                .addComponent(jtConsultaId, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE))
-                                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(jLabel7)
-                                                .addGap(21, 21, 21)
-                                                .addComponent(jtConsultaCalorias, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton5)
-                                            .addComponent(jButton6)
-                                            .addComponent(jButton7)))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                                .addGap(30, 30, 30))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(94, 94, 94)
-                                .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                        .addGap(31, 31, 31)
+                                        .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jbLimpiarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,13 +275,41 @@ public class Page22 extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
-                        .addContainerGap())
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(BuscarId)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(BuscarNombre)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(BuscarCalorias))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jtConsultaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jtConsultaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jtConsultaCalorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jbLimpiarTabla, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(19, 19, 19))
+                            .addComponent(jSeparator1))
+                        .addGap(41, 41, 41))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -238,61 +325,231 @@ public class Page22 extends javax.swing.JPanel {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jbLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(27, 27, 27))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jtConsultaId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jtConsultaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton6))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jtConsultaCalorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton7))
-                        .addGap(26, 26, 26)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30))))
+                        .addGap(60, 60, 60))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
 
+//  Boton buscar por Calorias
+    private void BuscarCaloriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarCaloriasActionPerformed
+        // Validacion de los datos ingresados
+            String caloriasText = jtConsultaCalorias.getText();
+
+    if (caloriasText.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El campo debe ser llenado con un número máximo de calorías por comida, para proceder con la consulta");
+        return;
+    }
+    try {
+        int calorias = Integer.parseInt(caloriasText);
+        if (calorias <= 0) {
+            JOptionPane.showMessageDialog(null, "Las Calorías ingresadas deben ser un número entero mayor a cero.");
+            return;
+        }
+        
+        comidaActual = null; // Asigno null por defecto o como precaución
+        
+        // Realizar la búsqueda
+        List<Comida>  listaComidas = comidaData.obtenerComidasPorCalorias(calorias);
+
+        if (!listaComidas.isEmpty()) {
+            mostrarListComidaEnTabla(listaComidas); // Muestra todas las comidas en la tabla
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontraron comidas con un rango menor a las calorías ingresadas.");
+        }
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(null, "Las Calorías ingresadas deben ser un número entero.");
+    }
+    }//GEN-LAST:event_BuscarCaloriasActionPerformed
+
+//  Boton limpiar campo
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
-        // Boton limpiar campo
-                limpiarCampos();
+
+            limpiarCampos();
+            comidaActual =null;
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
+//  Boton agregar comida
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-        // TODO add your handling code here:
+        // TODA la logica asociada al ingreso de datos debe ser validada
+        if (camposVacios() || !validarNombre() || !validarDetalle() || !validarCalorias()) {
+        return; // Si Validación falla, NO se ejecutan la carga en la BBDD
+    }
+
+    // Si Validación exitosa, se ejecutan la carga en la BBDD
+    String nombre = jtNombre.getText();
+    String detalle = jtDetalle.getText();
+    int calorias = Integer.parseInt(jtCalorias.getText());
+
+    // Carga en la base de datos
+    if (comidaActual == null) {
+        comidaActual = new Comida(nombre, detalle, calorias, true); // agrego el true para el Estado
+        comidaData.insertarComida(comidaActual);
+    }
+
+    JOptionPane.showMessageDialog(this, "Comida agregada con ÉXITO");
     }//GEN-LAST:event_jbAgregarActionPerformed
+   
+//  Boton Buscar por Id:     
+    private void BuscarIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarIdActionPerformed
+        // Validar ingreso de datos
+        String idText = jtConsultaId.getText();
+
+    if (idText.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El campo debe ser llenado con el código de la comida, para proceder con la consulta");
+        return;
+    }
+
+    try {
+        int id = Integer.parseInt(idText);
+        if (id <= 0) {
+            JOptionPane.showMessageDialog(null, "El Código ingresado debe ser un número entero mayor a cero.");
+            return;
+        }
+       comidaActual = null; // Asigno null por defecto o como precaución
+       
+        // Realizar la búsqueda en la BBDD 
+        comidaActual = comidaData.obtenerComidaPorId(id);
+        // Mostrar en la Tabla de Comida
+        mostrarComidaEnTabla(comidaActual);
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(null, "El Código ingresado debe ser un número entero.");
+    }
+    }//GEN-LAST:event_BuscarIdActionPerformed
+
+//  Boton Buscar por Nombre:
+    private void BuscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarNombreActionPerformed
+
+            String nombre = jtConsultaNombre.getText();
+
+    if (nombre.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El campo debe ser llenado con el nombre de una comida, para proceder con la consulta.");
+        return;
+    }
+
+    if (esNumero(nombre)) {
+        JOptionPane.showMessageDialog(null, "El Nombre ingresado no puede ser numérico.");
+        return;
+    }
+       comidaActual = null; // Asigno null por defecto o como precaución
+       
+       // Realizar la búsqueda en la BBDD
+        ArrayList<Comida> listaComidas = (ArrayList<Comida>) ComidaData.obtenerComidasPorNombre(nombre);
+
+        // Verifica si se encontraron comidas
+    if (!listaComidas.isEmpty()) {
+        comidaActual = listaComidas.get(0); // Tomar la primera comida de la lista
+        // Mostrar la comida encontrada en la tabla
+        mostrarComidaEnTabla(comidaActual);
+    } else {
+        JOptionPane.showMessageDialog(null, "No se encontraron comidas con ese nombre.");
+    }
+    /* NOTA: deberia usar el mismo codigo de buscar por calorias, por las dudas hay comidas repetidas por el nombre.
+    Si puedo vizualizar las repetidas. Podre eliminarlas. 
+    Este metodo solo muestra la primera coincidencia */    
+    }//GEN-LAST:event_BuscarNombreActionPerformed
+
+//  Boton limpia la tabla y los jtfield de busqueda
+    private void jbLimpiarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarTablaActionPerformed
+        limpiarTabla();
+        comidaActual = null;
+            jtConsultaId.setText("");
+            jtConsultaNombre.setText("");
+            jtConsultaCalorias.setText(""); 
+    }//GEN-LAST:event_jbLimpiarTablaActionPerformed
+//  Boton eliminar comida
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        // Algunas validaciones:     
+        int filaS = jTablaComida.getSelectedRow();
+
+        if (filaS == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una comida de la tabla para ejecutar su eliminación.");
+        } else if (jTablaComida.getSelectedRowCount() > 1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionarse una sola comida para proceder con la operación");
+        } else {
+            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de querer eliminar esta comida de la base de datos?", "Confirmar eliminación", JOptionPane.OK_CANCEL_OPTION);
+
+            if (confirmacion == JOptionPane.OK_OPTION) {
+                Object idComidaObject = jTablaComida.getValueAt(filaS, 0);
+
+                if (idComidaObject instanceof Integer) {
+                    int idComida = (Integer) idComidaObject;
+
+                    // Ejecutar la operación de eliminación
+                    comidaData.eliminarComida(idComida);
+
+                    // Limpiar la tabla después de la eliminación
+                    limpiarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al obtener el ID de la comida");
+                }
+            }
+        }
+    }//GEN-LAST:event_jbEliminarActionPerformed
+
+    //  Boton actualizar comida
+    private void jbActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbActualizarActionPerformed
+        // TODO add your handling code here:
+                int filaSeleccionada = jTablaComida.getSelectedRow();
+
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una comida de la tabla para ejecutar su actualización.");
+            return;
+        } else if (jTablaComida.getSelectedRowCount() > 1) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionarse una sola comida para proceder con la operación");
+            return;
+        } else {
+            int idComida = (int) jTablaComida.getValueAt(filaSeleccionada, 0);
+            Comida comidaSeleccionada = comidaData.obtenerComidaPorId(idComida);
+
+            JTextField tfNombre = new JTextField(comidaSeleccionada.getNombre());
+            JTextField tfDetalle = new JTextField(comidaSeleccionada.getDetalle());
+            JTextField tfCalorias = new JTextField(String.valueOf(comidaSeleccionada.getCantCalorias()));
+
+            JPanel panel = new JPanel(new GridLayout(0, 2));
+            panel.add(new JLabel("Nombre: "));
+            panel.add(tfNombre);
+            panel.add(new JLabel("Detalle: "));
+            panel.add(tfDetalle);
+            panel.add(new JLabel("Calorías: "));
+            panel.add(tfCalorias);
+
+            int result = JOptionPane.showConfirmDialog(null, panel, "Actualizar Comida", JOptionPane.OK_CANCEL_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+                String nombre = tfNombre.getText();
+                String detalle = tfDetalle.getText();
+                int calorias = Integer.parseInt(tfCalorias.getText());
+
+                comidaSeleccionada.setNombre(nombre);
+                comidaSeleccionada.setDetalle(detalle);
+                comidaSeleccionada.setCantCalorias(calorias);
+
+                // Ejecutar la operación de actualización
+                comidaData.actualizarComida(comidaSeleccionada);
+                JOptionPane.showMessageDialog(null, "Los datos de la comida han sido modificados con éxito");
+                
+                // Limpiar la tabla después de la actualizacion para que vuelvan a consultar
+                    limpiarTabla();
+            }
+        }
+    }//GEN-LAST:event_jbActualizarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton BuscarCalorias;
+    private javax.swing.JButton BuscarId;
+    private javax.swing.JButton BuscarNombre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -309,6 +566,7 @@ public class Page22 extends javax.swing.JPanel {
     private javax.swing.JButton jbAgregar;
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbLimpiar;
+    private javax.swing.JButton jbLimpiarTabla;
     private javax.swing.JTextField jtCalorias;
     private javax.swing.JTextField jtConsultaCalorias;
     private javax.swing.JTextField jtConsultaId;
@@ -318,15 +576,114 @@ public class Page22 extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
 
+// Aqui todos los MÉTODOS de VALIDACIÓN (usarlos en los otros formularios tb)
+
+    private boolean camposVacios() { // Método que compruebe que todos los campos esten completos
+        if (jtNombre.getText().isEmpty() || jtDetalle.getText().isEmpty() || jtCalorias.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos deben ser llenados");
+            return true;
+        }
+        return false;
+    }
+
+    private boolean validarNombre() { // Metodo que valide que es string
+        if (esNumero(jtNombre.getText())) {
+            JOptionPane.showMessageDialog(this, "El Nombre no debe ser numérico");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarDetalle() { // Metodo que valide que es string
+        if (esNumero(jtDetalle.getText())) {
+            JOptionPane.showMessageDialog(this, "El campo Detalle no deben ser numérico");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean validarCalorias() {
+        try {
+            int calorias = Integer.parseInt(jtCalorias.getText());
+            if (calorias <= 0) { // No acepta cero o números negativos
+                JOptionPane.showMessageDialog(this, "Las calorías ingresadas deben ser números enteros mayores a cero");
+                return false;
+            }
+        } catch (NumberFormatException e) { // Si se ingreso caracteres no numéricos
+            JOptionPane.showMessageDialog(this, "Las calorías ingresadas deben ser números enteros mayores a cero");
+            return false;
+        }
+        return true;
+    }
+
+    private boolean esNumero(String texto) {
+        try {
+            Integer.parseInt(texto);
+            return true; // Si es un número
+        } catch (NumberFormatException e) {
+            return false; // No es un número
+        }
+    }
+
+    private void armarCabecera(){  
+    //Personalizamos la cabecera de la tabla. Le designamos el nombre "Codigo" 
+    //a la columna que mostrara el Id para mejorar la experiencia de usuario
+
+        modelo.addColumn("Código"); 
+        modelo.addColumn("Nombre"); 
+        modelo.addColumn("Detalle"); 
+        modelo.addColumn("Calorias");
+
+        jTablaComida.setModel(modelo);  
+    }
+    
+//  Metodo para limpiar campos
     private void limpiarCampos(){
         jtNombre.setText("");
         jtDetalle.setText("");
-        jtCalorias.setText("");
-        
+        jtCalorias.setText("");             
+    }  
+    
+//  Método para limpiar la tabla comida
+    private void limpiarTabla() {
+        jTablaComida.getModel();
+        modelo.setRowCount(0); 
     }
 
+//  Método para mostrar la tabla con la comida consultada 
+    private void mostrarComidaEnTabla(Comida comida) { 
+        limpiarTabla();
 
+            if (comida != null) {
+            modelo.addRow(new Object[]{
+                            comida.getIdComida(), 
+                            comida.getNombre(), 
+                            comida.getDetalle(), 
+                            comida.getCantCalorias()
+            });
+        }
+    }
+  
+//  Método para mostrar la tabla con una lista de comidas consultadas     
+    private void mostrarListComidaEnTabla(List<Comida> comidas) {
+        limpiarTabla();
+        jTablaComida.getModel();
 
+        for (Comida comida : comidas) {
+            modelo.addRow(new Object[]{
+                comida.getIdComida(), 
+                comida.getNombre(), 
+                comida.getDetalle(), 
+                comida.getCantCalorias()
+            });
+        }
+    }
+    
+    
+//  En un ArrayList se iran guardando las listas de comidas
+    private static class Arraylist {
 
+     public static  ArrayList<Comida> listaComidas=new ArrayList<>();
+    }
 
 }

@@ -182,7 +182,7 @@ public class MenuView extends javax.swing.JFrame {
 
     private void jbComidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbComidasActionPerformed
        
-        Page2 p2=new Page2();
+        Page22 p2=new Page22();
         ShowPanel(p2);
         
  // Ya no es necesaria esto:    
