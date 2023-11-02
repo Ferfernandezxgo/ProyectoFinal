@@ -4,7 +4,7 @@
  */
 package proyectofinal.accesoADatos;
 
-import org.mariadb.jdbc.Connection;
+
 import proyectofinal.entidades.Comida;
 import java.util.*;
 import java.sql.*;
