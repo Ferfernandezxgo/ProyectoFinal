@@ -272,9 +272,7 @@ public class Page1 extends javax.swing.JPanel {
         // TODO add your handling code here:
         // Recopila los datos de la interfaz (por ejemplo, jtNombre, jtDomicilio, jtDni, jtTelefono, jrEstado)
     
-    
-    
-    
+         
     String nombre = jtNombre.getText();
     String domicilio = jtDomicilio.getText();
     int dni = Integer.parseInt(jtDni.getText());
