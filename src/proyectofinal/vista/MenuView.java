@@ -44,7 +44,7 @@ public class MenuView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        ImageIcon icono=new ImageIcon(getClass().getResource("/proyectofinal/vista/asd2.jpg"));
+        ImageIcon icono=new ImageIcon(getClass().getResource("/proyectofinal/vista/comidamadera.jpeg"));
         Image miImagen=icono.getImage();
         escritorio1 = new javax.swing.JDesktopPane(){
             public void paintComponent(Graphics g ){
@@ -181,7 +181,7 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jbPacienteActionPerformed
 
     private void jbComidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbComidasActionPerformed
-        Page2 p2=new Page2();
+        Page22 p2=new Page22();
         p2.setSize(750, 430);
         p2.setLocation(0,0);
         

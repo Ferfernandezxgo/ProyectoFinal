@@ -19,6 +19,7 @@ public class ComidaData {
     private static final String BORRARCOMIDA=" DELETE FROM comida WHERE estado=? ";
     private static final String SELECCIONARCOMIDAXID=" SELECT * FROM comida WHERE idComida=?";
     private static final String SELECCIONARCOMIDAXCALORIAS=" SELECT * FROM comida WHERE cantCalorias < ?";
+    private static final String SELECCIONARCOMIDAXNOMBRE=" SELECT * FROM comida WHERE nombre=?";
 
     public ComidaData() {
     }
@@ -121,6 +122,31 @@ public static List<Comida> obtenerComidasPorCalorias(int maxCalorias) {
         return comidas;
         //
     }
+
+public static List<Comida> obtenerComidasPorNombre(String nombre) {
+    List<Comida> listacomidas = new ArrayList<>();
+
+    try (Connection conexion = (Connection) Conexion.obtenerConexion();
+         PreparedStatement ps = conexion.prepareStatement(SELECCIONARCOMIDAXNOMBRE)) {
+
+        ps.setString(1, nombre);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            int idComida = rs.getInt("idComida");
+//          String nombre = resultSet.getString("nombre");  //Variable ya definida
+            String detalle = rs.getString("detalle");
+            int cantCalorias = rs.getInt("cantCalorias");
+
+            Comida comida = new Comida(); // Esto debo arreglar
+            listacomidas.add(comida);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error en consultar comida por nombre");
+    }
+    return listacomidas;
+}
 
 
 
