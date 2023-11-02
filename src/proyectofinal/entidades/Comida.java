@@ -6,26 +6,18 @@ package proyectofinal.entidades;
 
 
 public class Comida {
-    private int idComida;
     private String nombre;
     private String detalle;
     private int cantCalorias;
+    private int idComida;
     private boolean estado;
 
-    public Comida(int idComida, String nombre, String detalle, int cantCalorias, boolean estado) {
-        this.idComida = idComida;
+    public Comida(String nombre, String detalle, int cantCalorias,boolean estado) {
         this.nombre = nombre;
         this.detalle = detalle;
         this.cantCalorias = cantCalorias;
-        this.estado = estado;
-    }
-
-    // Contructor que usa el formulario comida
-    public Comida(String nombre, String detalle, int cantCalorias, boolean estado) {
-        this.nombre = nombre;
-        this.detalle = detalle;
-        this.cantCalorias = cantCalorias;
-        this.estado = estado;
+        this.idComida=idComida;
+        this.estado=estado;
     }
 
     public Comida() {

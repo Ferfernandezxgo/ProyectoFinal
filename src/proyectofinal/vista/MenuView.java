@@ -9,7 +9,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.time.LocalDate;
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import proyectofinal.accesoADatos.ComidaData;
 import proyectofinal.entidades.Paciente;
 
@@ -29,9 +28,15 @@ public class MenuView extends javax.swing.JFrame {
             ,"Octubre","Noviembre","Diciemrbre"};
         fecha.setText("Hoy es "+dia+" de "+meses[month - 1]+" de "+year);
         
-        //Despliege del 1° JPanelForm
         Page1 p1=new Page1();
-        ShowPanel(p1);
+        p1.setSize(750, 430);
+        p1.setLocation(0,0);
+        
+        content.removeAll();
+        content.add(p1, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
+        
     }
 
     
@@ -83,7 +88,6 @@ public class MenuView extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Roboto Serif 20pt", 3, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("NUTRICION DE LA PUNTA");
 
         content.setBackground(new java.awt.Color(255, 255, 255));
@@ -102,6 +106,7 @@ public class MenuView extends javax.swing.JFrame {
 
         fecha.setBackground(new java.awt.Color(102, 51, 0));
         fecha.setFont(new java.awt.Font("Roboto Serif 20pt", 3, 18)); // NOI18N
+        fecha.setForeground(new java.awt.Color(0, 0, 0));
         fecha.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         fecha.setText("Hoy es Jueves 12 de Octubre de 2023");
 
@@ -125,12 +130,12 @@ public class MenuView extends javax.swing.JFrame {
                 .addComponent(jbDietas)
                 .addGap(81, 81, 81))
             .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(escritorio1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorio1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(fecha))
+            .addGroup(escritorio1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         escritorio1Layout.setVerticalGroup(
             escritorio1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,54 +167,39 @@ public class MenuView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPacienteActionPerformed
-        // Instanciar la clase JpanelForm y llamar al metodo para vizualizarla en el JFrame
-        Page1 p1=new Page1();
-        ShowPanel(p1);        
-
-
-// Ya no es necesaria esto:
+        // TODO add your handling code here:
         
-//        Page1 p1= new Page1();
-//        p1.setSize(750, 430);
-//        p1.setLocation(0,0);
-//        
-//        content.removeAll();
-//        content.add(p1, BorderLayout.CENTER);
-//        content.revalidate();
-//        content.repaint();
+        Page1 p1= new Page1();
+        p1.setSize(750, 430);
+        p1.setLocation(0,0);
+        
+        content.removeAll();
+        content.add(p1, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
         
     }//GEN-LAST:event_jbPacienteActionPerformed
 
     private void jbComidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbComidasActionPerformed
-       
-        Page22 p2=new Page22();
-        ShowPanel(p2);
+        Page2 p2=new Page2();
+        p2.setSize(750, 430);
+        p2.setLocation(0,0);
         
- // Ya no es necesaria esto:    
-//        Page2 p2=new Page2();
-//        p2.setSize(750, 430);
-//        p2.setLocation(0,0);
-//        
-//        content.removeAll();
-//        content.add(p2, BorderLayout.CENTER);
-//        content.revalidate();
-//        content.repaint();
+        content.removeAll();
+        content.add(p2, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
     }//GEN-LAST:event_jbComidasActionPerformed
 
     private void jbDietasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDietasActionPerformed
-        
         Page3 p3=new Page3();
-        ShowPanel(p3);
+        p3.setSize(750, 430);
+        p3.setLocation(0,0);
         
- // Ya no es necesaria esto:          
-//        Page3 p3=new Page3();
-//        p3.setSize(750, 430);
-//        p3.setLocation(0,0);
-//        
-//        content.removeAll();
-//        content.add(p3, BorderLayout.CENTER);
-//        content.revalidate();
-//        content.repaint();
+        content.removeAll();
+        content.add(p3, BorderLayout.CENTER);
+        content.revalidate();
+        content.repaint();
     }//GEN-LAST:event_jbDietasActionPerformed
 
     /**
@@ -256,16 +246,4 @@ public class MenuView extends javax.swing.JFrame {
     private javax.swing.JButton jbDietas;
     private javax.swing.JButton jbPaciente;
     // End of variables declaration//GEN-END:variables
-
-//  Metodo para mostrar los paneles page 0, 1, 2 y 3(JPanelForm...) en la vista principal
-    private void ShowPanel(JPanel p){
-       
-        p.setSize(750, 430);
-        p.setLocation(0,0);
-        
-        content.removeAll();
-        content.add(p, BorderLayout.CENTER);
-        content.revalidate();
-        content.repaint();
-    }
 }
